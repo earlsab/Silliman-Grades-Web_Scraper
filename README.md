@@ -1,7 +1,8 @@
 # Silliman-Grades-Web_Scraper
 
+A lighter and faster alternative to loading one's Silliman grades. Helpful for when your teachers haven't submitted your grades yet and you want to check it frequently.
 
-
+---
 Attempts to get your grades from https://my.su.edu.ph/mysilliman/
 
 This is done by:
