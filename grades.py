@@ -72,7 +72,7 @@ def setup():
         textscrapper()
 
 def calculateQpa():
-        gradeMultiplied = []
+        qualityPoint = []
         units = []
         incompleteMatchedUnits = []
         completeGrades = False
@@ -80,26 +80,28 @@ def calculateQpa():
         for index1 in data:
                 try:
                         units.append(float(index1[4])) 
-                        gradeMultiplied.append(float(index1[4]) * float(index1[6]))
+                        qualityPoint.append(float(index1[4]) * float(index1[6]))
                         incompleteMatchedUnits.append(float(index1[4]))  # Should only run if the code above works well. 
                 except:
                         pass
 
-        if len(units) == len(gradeMultiplied):
-                gpa = sum(gradeMultiplied) / sum(units)
+        if len(units) == len(qualityPoint):
+                cqpa = sum(qualityPoint) / sum(units)
                 completeGrades = True
         else:
-                gpa = sum(gradeMultiplied) / sum(incompleteMatchedUnits)
+                cqpa = sum(qualityPoint) / sum(incompleteMatchedUnits)
                 print("\n== ERROR ==")
-                print("Found only grades for", len(gradeMultiplied), "subject(s)")
-                print("Lacking grades for", (len(units) - len(gradeMultiplied)), "subject(s)")
+                print("Found only grades for", len(qualityPoint), "subject(s)")
+                print("Lacking grades for", (len(units) - len(qualityPoint)), "subject(s)")
 
         print("\nTotal Units: ", sum(units))
-        print("Total (multiplied by unit) Grade: ", sum(gradeMultiplied))
+        print("Total Quality Points (Unit * Grade): ", sum(qualityPoint))
+        
+        print("\nCQPA = Total Quality Point / Number of Units")
         if completeGrades:
-                print("\nCalculated GPA:", gpa)
+                print("Calculated CQPA:", cqpa)
         elif not completeGrades:
-                print("\nSupposed GPA Ouput (INCOMPLETE GRADES):", gpa)
+                print("Supposed CQPA Ouput (INCOMPLETE GRADES):", cqpa)
 
 
 
