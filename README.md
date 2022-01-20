@@ -22,7 +22,7 @@ pip install requests
 ## A suggestion for macOS Monterey users
 - After the initial setup, a shortcut could be made to automate the process. This shortcut for example is accessible for me in the menu bar. See image attached.
 - Shortcuts could also be configured to run other shortcuts. Thus when properly configured, allows for the script to run every hour, and notifies you only for when there's an update to your grades.
- ![image](https://user-images.githubusercontent.com/62688314/150317079-bcccf406-a34f-4172-9db3-b1bb7b33eabe.png)
+![image](https://user-images.githubusercontent.com/62688314/150344161-46816971-d2fc-4d24-b74f-d908bc338495.png)
 
 ---
 ## ⚠️ Some concerns
