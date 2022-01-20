@@ -5,6 +5,7 @@ from tabulate import tabulate
 
 
 def grades():
+        global data
         payload = {
                 'username': username,
                 'password': password
@@ -42,7 +43,6 @@ def grades():
         
         print (tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
 
-
 def textscrapper():
         global username, password, limitSY, userInput
         with open('userinfo.txt', "r+") as text:
@@ -60,7 +60,6 @@ def textscrapper():
                         except:
                                 print("userinfo.txt in wrong format")
 
-
 def setup():
         print("==SETUP==")
         print("Any errors can be corrected by editing the \"userinfo.txt\" file.")
@@ -72,6 +71,39 @@ def setup():
                 text.write(input("Limit to SY: "))
         textscrapper()
 
+def calculateQpa():
+        gradeMultiplied = []
+        units = []
+        incompleteMatchedUnits = []
+        completeGrades = False
+
+        for index1 in data:
+                try:
+                        units.append(float(index1[4])) 
+                        gradeMultiplied.append(float(index1[4]) * float(index1[6]))
+                        incompleteMatchedUnits.append(float(index1[4]))  # Should only run if the code above works well. 
+                except:
+                        pass
+
+        if len(units) == len(gradeMultiplied):
+                gpa = sum(gradeMultiplied) / sum(units)
+                completeGrades = True
+        else:
+                gpa = sum(gradeMultiplied) / sum(incompleteMatchedUnits)
+                print("\n== ERROR ==")
+                print("Found only grades for", len(gradeMultiplied), "subject(s)")
+                print("Lacking grades for", (len(units) - len(gradeMultiplied)), "subject(s)")
+
+        print("\nTotal Units: ", sum(units))
+        print("Total (multiplied by unit) Grade: ", sum(gradeMultiplied))
+        if completeGrades:
+                print("\nCalculated GPA:", gpa)
+        elif not completeGrades:
+                print("\nSupposed GPA Ouput (INCOMPLETE GRADES):", gpa)
+
+
+
+
 print("Silliman Grades")
 while True:
         try:  # Doing this apparently forces python to create a "userinfo.txt" file
@@ -81,9 +113,10 @@ while True:
         
         try:
                 grades()
+                calculateQpa()
                 break
         except:
-                print("==ERROR==")
+                print("== ERROR ==")
                 print("Errors occured most likely due to a setup error")
                 open('userinfo.txt', 'w').close()
                 print("Erasing content of userinfo.txt\n")
