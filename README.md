@@ -20,7 +20,7 @@ pip install requests
 ```
 ---
 ## A suggestion for macOS Monterey users
-- A shortcut could be made to automate the process. This shortcut for example is accessible for me in the menu bar. See image attached.
+- After the initial setup, a shortcut could be made to automate the process. This shortcut for example is accessible for me in the menu bar. See image attached.
  ![image](https://user-images.githubusercontent.com/62688314/150317079-bcccf406-a34f-4172-9db3-b1bb7b33eabe.png)
 
 ---
