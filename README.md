@@ -3,7 +3,7 @@
 A lighter and faster alternative to loading one's Silliman grades. Helpful for when your teachers haven't submitted your grades yet and you want to check it frequently.
 
 ---
-Attempts to get your grades from https://my.su.edu.ph/mysilliman/
+Attempts to get your grades from https://my.su.edu.ph/mysilliman/ displays it and calculates for your QPA.
 
 This is done by:
 1. Sending your login requests to the website.
