@@ -33,7 +33,7 @@ def grades():
 
                 if limitSY != '':
                         try:
-                                if dataStage[0] == limitSY:
+                                if dataStage[0] == limitSY and dataStage[1] == limitSem:
                                         data.append(dataStage)
                         except IndexError:
                                 pass
@@ -52,11 +52,12 @@ def textscrapper():
                         setup()
                 else:
                         print("userinfo.txt found. Attempting to get grades.\n")
-                        data = textContent.split('\n')
+                        userData = textContent.split('\n')
                         try:
-                                username = data[0]
-                                password = data[1]
-                                limitSY = data[2]
+                                username = userData[0]
+                                password = userData[1]
+                                limitSY = userData[2]
+                                limitSem = userData[3]
                         except:
                                 print("userinfo.txt in wrong format")
 
@@ -69,6 +70,8 @@ def setup():
                 text.write(input("Password: "))
                 text.write("\n")
                 text.write(input("Limit to SY: "))
+                text.write("\n")
+                text.write(input("Limit to Sem: "))
         textscrapper()
 
 def calculateQpa():
