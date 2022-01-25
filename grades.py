@@ -34,7 +34,7 @@ def grades():
 
                 if limitSY != '':
                         try:
-                                if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):
+                                if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):  #TODO Allow for more options in "limitSY"
                                         data.append(dataStage)
                         except IndexError:
                                 pass
