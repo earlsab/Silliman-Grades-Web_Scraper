@@ -1,5 +1,3 @@
-# https://github.com/earlsab/Silliman-Grades-Web_Scraper
-
 import requests
 from bs4 import BeautifulSoup
 from tabulate import tabulate
@@ -126,7 +124,8 @@ def showConfig():
 
 print("Silliman Grades Python Script")
 print('NOTE: This program does not contain a selectable menu of some kind, but rather is controlled through the "userinfo.txt" file.\n')
-print('Check "https://github.com/earlsab/Silliman-Grades-Web_Scraper#userinfo.txt-format" for more info.')
+print('Check "README.md" for more info')
+
 try:  # Doing this apparently forces python to create a "userinfo.txt" file
         textscrapper()
 except:
