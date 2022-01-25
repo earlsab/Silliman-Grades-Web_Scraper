@@ -29,7 +29,7 @@ To avoid having to type the same information after every launch, the program sta
 
 In the event of an error, the program will attempt to fix itself by deleting the contents of the userinfo.txt and go through the setup process again.
 
-Below this text contains the format in which the program reads from. Any slight changes in the order or spelling might cause an error so please be cautious.
+Below this text contains the format in which the program reads from (minus the python comments "#"). Any slight changes in the order or spelling might cause an error so please be cautious.
 ```
 21-0-00000  # SU-ID
 p@ssw0rd  # SU Password
@@ -38,8 +38,8 @@ p@ssw0rd  # SU Password
 ```
 
 ### Sidenotes
-(1) S.Y. limits only work when inputed that exact format, no extra spaces or characters
-(2) Sem limits work on the following 3 options: (1) "1st Sem", (2) "2nd Sem", (3) "Both" 
+- (1) S.Y. limits only work when inputed that exact format, no extra spaces or characters
+- (2) Sem limits work on the following 3 options: (1) "1st Sem", (2) "2nd Sem", (3) "Both" 
 
 ---
 ## ⚠️ Some concerns
