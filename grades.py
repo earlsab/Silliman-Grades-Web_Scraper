@@ -1,7 +1,8 @@
+# https://github.com/earlsab/Silliman-Grades-Web_Scraper
+
 import requests
 from bs4 import BeautifulSoup
 from tabulate import tabulate
-
 
 
 def grades():
@@ -33,7 +34,7 @@ def grades():
 
                 if limitSY != '':
                         try:
-                                if dataStage[0] == limitSY and dataStage[1] == limitSem:
+                                if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):
                                         data.append(dataStage)
                         except IndexError:
                                 pass
@@ -41,10 +42,10 @@ def grades():
                         data.append(dataStage) 
                 dataStage = []
         
-        print (tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
+        print(tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
 
 def textscrapper():
-        global username, password, limitSY, userInput
+        global username, password, limitSY, userInput, limitSem1, limitSem2 
         with open('userinfo.txt', "r+") as text:
                 textContent = text.read()
                 if len(textContent) == 0:
@@ -57,7 +58,18 @@ def textscrapper():
                                 username = userData[0]
                                 password = userData[1]
                                 limitSY = userData[2]
-                                limitSem = userData[3]
+                        except:
+                                print("userinfo.txt in wrong format")
+                        try:
+                                if userData[3] == "1st Sem":  # I acknowledge how lame this is written
+                                        limitSem1 = "1st Sem"
+                                        limitSem2 = "1st Sem"
+                                elif userData[3] == "2nd Sem":
+                                        limitSem1 = "2nd Sem"
+                                        limitSem2 = "2nd Sem"
+                                elif userData[3] == "Both":
+                                        limitSem1 = "1st Sem"
+                                        limitSem2 = "2nd Sem"
                         except:
                                 print("userinfo.txt in wrong format")
 
@@ -71,7 +83,7 @@ def setup():
                 text.write("\n")
                 text.write(input("Limit to SY: "))
                 text.write("\n")
-                text.write(input("Limit to Sem: "))
+                text.write(input("Limit Sem to (1st Sem/2nd Sem/Both): "))
         textscrapper()
 
 def calculateQpa():
@@ -106,22 +118,31 @@ def calculateQpa():
         elif not completeGrades:
                 print("Supposed CQPA Ouput (INCOMPLETE GRADES):", cqpa)
 
+def showConfig():
+        print(username)
+        print(limitSY)
+        print(limitSem1, "to", limitSem2, "\n")
 
 
+print("Silliman Grades Python Script")
+print('NOTE: This program does not contain a selectable menu of some kind, but rather is controlled through the "userinfo.txt" file.\n')
+print('Check "https://github.com/earlsab/Silliman-Grades-Web_Scraper#userinfo.txt-format" for more info.')
+try:  # Doing this apparently forces python to create a "userinfo.txt" file
+        textscrapper()
+except:
+        pass
+try:
+        print("showing config for:")
+        showConfig()
+        grades()
+except:
+        print("== ERROR ==")
+        print("Errors occured most likely due to a setup error")
+        open('userinfo.txt', 'w').close()
+        print("Erasing content of userinfo.txt\n")
 
-print("Silliman Grades")
-while True:
-        try:  # Doing this apparently forces python to create a "userinfo.txt" file
-                textscrapper()
-        except:
-                pass
-        
-        try:
-                grades()
-                calculateQpa()
-                break
-        except:
-                print("== ERROR ==")
-                print("Errors occured most likely due to a setup error")
-                open('userinfo.txt', 'w').close()
-                print("Erasing content of userinfo.txt\n")
+try:
+        calculateQpa()
+except:
+        print("\n == ERROR ==")
+        print("Failed to calculate QPA") 
