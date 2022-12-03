@@ -5,6 +5,7 @@ from tabulate import tabulate
 
 def grades():
         global data
+        data = []
         payload = {
                 'username': username,
                 'password': password
@@ -20,9 +21,40 @@ def grades():
 
         soup = BeautifulSoup(r.content,'html.parser')
         table = soup.find('table', class_="table")
+        sortData(data, table, '2021-2022') # TODO Better implementation of adding new years
+        sortData(data, table, '2022-2023')
+        # data = []
+        # dataStage = []
+        # excludeSubjects = ['NSTP 1ROTC(2018)', 'NSTP 2(ROTC)2018', 'PEP 1(2018)', 'PEP 2(2018)']
+        # include_subject_bool = False
+        # tr = table.find_all("tr")
+        # for td in tr:
+        #         row = td.find_all("td")
+        #         for x in row:  # Prints out Individual Data
+        #                 dataStage.append(x.get_text())
+        #
+        #         if limitSY != '':
+        #                 include_subject_bool = True
+        #                 try:
+        #                         if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):
+        #                             for ex in excludeSubjects:
+        #                                     if dataStage[2] == ex:
+        #                                             include_subject_bool = False
+        #                         if include_subject_bool:
+        #                                 data.append(dataStage)
+        #                 except IndexError:
+        #                         pass
+        #         elif limitSY == '':
+        #                 data.append(dataStage)
+        #         dataStage = []
 
-        data = []
+        print(tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
+
+def sortData(data, table, sy):
+
         dataStage = []
+        excludeSubjects = ['NSTP 1ROTC(2018)', 'NSTP 2(ROTC)2018', 'PEP 1(2018)', 'PEP 2(2018)']
+        include_subject_bool = False
 
         tr = table.find_all("tr")
         for td in tr:
@@ -30,17 +62,20 @@ def grades():
                 for x in row:  # Prints out Individual Data
                         dataStage.append(x.get_text())
 
-                if limitSY != '':
+                if sy != '':
+                        include_subject_bool = True
                         try:
-                                if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):  #TODO Allow for more options in "limitSY"
+                                if dataStage[0] == sy and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):
+                                    for ex in excludeSubjects:
+                                            if dataStage[2] == ex:
+                                                include_subject_bool = False
+                                    if include_subject_bool:
                                         data.append(dataStage)
                         except IndexError:
                                 pass
-                elif limitSY == '':
-                        data.append(dataStage) 
+                elif sy == '':
+                        data.append(dataStage)
                 dataStage = []
-        
-        print(tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
 
 def textscrapper():
         global username, password, limitSY, userInput, limitSem1, limitSem2 
@@ -137,11 +172,12 @@ try:
 except:
         print("== ERROR ==")
         print("Errors occured most likely due to a setup error")
-        open('userinfo.txt', 'w').close()
-        print("Erasing content of userinfo.txt\n")
+        #open('userinfo.txt', 'w').close()
+        #print("Erasing content of userinfo.txt\n")
 
 try:
         calculateQpa()
 except:
         print("\n == ERROR ==")
         print("Failed to calculate QPA") 
+
