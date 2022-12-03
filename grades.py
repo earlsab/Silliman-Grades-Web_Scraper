@@ -146,7 +146,7 @@ try:
         grades()
 except:
         print("== ERROR ==")
-        print("Errors occured most likely due to a setup error")
+        print("Errors occured most likely due to a setup error. Please delete 'userinfo.txt' and run the program again.")
         #open('userinfo.txt', 'w').close()
         #print("Erasing content of userinfo.txt\n")
 
