@@ -23,31 +23,6 @@ def grades():
         table = soup.find('table', class_="table")
         sortData(data, table, '2021-2022') # TODO Better implementation of adding new years
         sortData(data, table, '2022-2023')
-        # data = []
-        # dataStage = []
-        # excludeSubjects = ['NSTP 1ROTC(2018)', 'NSTP 2(ROTC)2018', 'PEP 1(2018)', 'PEP 2(2018)']
-        # include_subject_bool = False
-        # tr = table.find_all("tr")
-        # for td in tr:
-        #         row = td.find_all("td")
-        #         for x in row:  # Prints out Individual Data
-        #                 dataStage.append(x.get_text())
-        #
-        #         if limitSY != '':
-        #                 include_subject_bool = True
-        #                 try:
-        #                         if dataStage[0] == limitSY and (dataStage[1] == limitSem1 or dataStage[1] == limitSem2):
-        #                             for ex in excludeSubjects:
-        #                                     if dataStage[2] == ex:
-        #                                             include_subject_bool = False
-        #                         if include_subject_bool:
-        #                                 data.append(dataStage)
-        #                 except IndexError:
-        #                         pass
-        #         elif limitSY == '':
-        #                 data.append(dataStage)
-        #         dataStage = []
-
         print(tabulate(data, headers=["SY", "Sem", "Subject", "Desc", "Units", "Midterms", "Finals"]))
 
 def sortData(data, table, sy):
